@@ -32,6 +32,7 @@ function App() {
       localStorage.setItem("memos", JSON.stringify(resultMemo));
       return resultMemo;
     });
+    setTargetId("");
   }
 
   function handleChangeMemo(nextMemo) {
@@ -42,6 +43,7 @@ function App() {
       localStorage.setItem("memos", JSON.stringify(resultMemo));
       return resultMemo;
     });
+    setTargetId("");
   }
 
   function handleDeleteMemo(memoId) {
