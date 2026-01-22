@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { LoginContext } from "../contexts/LoginContext.jsx";
 import Button from "./Button.jsx";
 
 export default function MemoEditor({
@@ -8,11 +9,13 @@ export default function MemoEditor({
   onUpdate,
   onDelete,
 }) {
-  const [content, setContent] = useState(`${memo.content}`);
+  const [content, setContent] = useState(memo.content);
   const editingMemo = {
     id: memo.id,
     content,
   };
+  const { isLogin } = useContext(LoginContext);
+
   return (
     <>
       <textarea
@@ -20,18 +23,19 @@ export default function MemoEditor({
         rows="10"
         value={content}
         onChange={(e) => {
-          setContent(e.target.value);
+          isLogin && setContent(e.target.value);
         }}
       />
       <div className="button-group">
-        {exists ? (
-          <>
-            <Button label={"更新"} onClick={() => onUpdate(editingMemo)} />
-            <Button label={"削除"} onClick={() => onDelete(memo.id)} />
-          </>
-        ) : (
-          <Button label={"追加"} onClick={() => onAdd(editingMemo)} />
-        )}
+        {isLogin &&
+          (exists ? (
+            <>
+              <Button label={"更新"} onClick={() => onUpdate(editingMemo)} />
+              <Button label={"削除"} onClick={() => onDelete(memo.id)} />
+            </>
+          ) : (
+            <Button label={"追加"} onClick={() => onAdd(editingMemo)} />
+          ))}
       </div>
     </>
   );
