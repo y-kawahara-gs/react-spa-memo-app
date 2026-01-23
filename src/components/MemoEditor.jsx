@@ -1,5 +1,5 @@
-import { useState, useContext } from "react";
-import { LoginContext } from "../contexts/LoginContext.jsx";
+import { useState } from "react";
+import { useLogin } from "../hooks/useLogin.jsx";
 import Button from "./Button.jsx";
 
 export default function MemoEditor({
@@ -14,7 +14,7 @@ export default function MemoEditor({
     id: memo.id,
     content,
   };
-  const { isLogin } = useContext(LoginContext);
+  const { isLogin } = useLogin();
 
   return (
     <>

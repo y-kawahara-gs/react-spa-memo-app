@@ -1,7 +1,8 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import MemoEditor from "./components/MemoEditor.jsx";
 import MemoList from "./components/MemoList.jsx";
-import { LoginContext } from "./contexts/LoginContext.jsx";
+import { LoginProvider } from "./components/LoginProvider.jsx";
+import { useLogin } from "./hooks/useLogin.jsx";
 import "./App.css";
 
 const memosStorage = {
@@ -10,11 +11,10 @@ const memosStorage = {
 };
 
 function App() {
-  const [isLogin, setIsLogin] = useState(false);
   return (
-    <LoginContext.Provider value={{ isLogin, setIsLogin }}>
+    <LoginProvider>
       <Home />
-    </LoginContext.Provider>
+    </LoginProvider>
   );
 }
 
@@ -23,7 +23,7 @@ function Home() {
     return memosStorage.get() || [];
   });
   const [targetId, setTargetId] = useState(null);
-  const { isLogin, setIsLogin } = useContext(LoginContext);
+  const { isLogin, toggleLogin } = useLogin();
   const targetMemo = memos.find((memo) => memo.id === targetId);
   const newMemo = {
     id: self.crypto.randomUUID(),
@@ -70,7 +70,7 @@ function Home() {
   return (
     <div>
       <p>一覧</p>
-      <button className="" onClick={() => setIsLogin((prev) => !prev)}>
+      <button className="grey-border" onClick={toggleLogin}>
         {isLogin ? "ログアウト" : "ログイン"}
       </button>
       <div className="window">

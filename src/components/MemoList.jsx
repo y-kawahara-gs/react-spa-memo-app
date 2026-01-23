@@ -1,8 +1,7 @@
-import { useContext } from "react";
-import { LoginContext } from "../contexts/LoginContext.jsx";
+import { useLogin } from "../hooks/useLogin.jsx";
 
 export default function MemoList({ memos, onSetId, onClick }) {
-  const { isLogin } = useContext(LoginContext);
+  const { isLogin } = useLogin();
   return (
     <>
       <ul>
@@ -14,7 +13,11 @@ export default function MemoList({ memos, onSetId, onClick }) {
           </li>
         ))}
         <li>
-          {isLogin && <button className="grey-border" onClick={() => onSetId("new")}>追加</button>}
+          {isLogin && (
+            <button className="grey-border" onClick={() => onSetId("new")}>
+              追加
+            </button>
+          )}
         </li>
       </ul>
     </>
