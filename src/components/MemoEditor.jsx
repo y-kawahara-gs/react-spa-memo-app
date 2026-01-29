@@ -1,11 +1,12 @@
 import { useState } from "react";
+import ActionButton from "./ActionButton.jsx";
 
 export default function MemoEditor({
   memo,
   exists,
-  onAddMemo,
-  onChangeMemo,
-  onDeleteMemo,
+  handleAddMemo,
+  handleChangeMemo,
+  handleDeleteMemo,
 }) {
   const [text, setText] = useState(`${memo.title}\n${memo.content}`);
   return (
@@ -21,38 +22,32 @@ export default function MemoEditor({
       <div className="button-group">
         {exists ? (
           <>
-            <button
-              className="action-button"
-              onClick={() =>
-                onChangeMemo({
+            <ActionButton
+              name={"更新"}
+              handleClick={() =>
+                handleChangeMemo({
                   id: memo.id,
                   title: text.split("\n", 1),
                   content: text.split("\n").slice(1).join("\n"),
                 })
               }
-            >
-              更新
-            </button>
-            <button
-              className="action-button"
-              onClick={() => onDeleteMemo(memo.id)}
-            >
-              削除
-            </button>
+            />
+            <ActionButton
+              name={"削除"}
+              handleClick={() => handleDeleteMemo(memo.id)}
+            />
           </>
         ) : (
-          <button
-            className="action-button"
-            onClick={() =>
-              onAddMemo({
+          <ActionButton
+            name={"追加"}
+            handleClick={() =>
+              handleAddMemo({
                 id: memo.id,
                 title: text.split("\n", 1),
                 content: text.split("\n").slice(1).join("\n"),
               })
             }
-          >
-            追加
-          </button>
+          />
         )}
       </div>
     </>

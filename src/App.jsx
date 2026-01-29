@@ -67,9 +67,9 @@ function App() {
               key={targetMemo ? targetMemo.id : newMemo.id}
               memo={targetMemo ? targetMemo : newMemo}
               exists={targetMemo ? true : false}
-              onAddMemo={handleAddMemo}
-              onChangeMemo={handleChangeMemo}
-              onDeleteMemo={handleDeleteMemo}
+              handleAddMemo={handleAddMemo}
+              handleChangeMemo={handleChangeMemo}
+              handleDeleteMemo={handleDeleteMemo}
             />
           </div>
         </>
