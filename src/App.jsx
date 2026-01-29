@@ -58,7 +58,7 @@ function App() {
     <div>
       <p>一覧</p>
       <div className="window">
-        <MemoList memos={memos} newMemoId={newMemo.id} onClick={handleSetId} />
+        <MemoList memos={memos} newMemoId={newMemo.id} handleClick={handleSetId} />
       </div>
       {targetId !== "" ? (
         <>
