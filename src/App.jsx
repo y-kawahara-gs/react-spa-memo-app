@@ -5,8 +5,8 @@ import "./App.css";
 
 function App() {
   const [memos, setMemos] = useState(() => {
-    const saveMemos = JSON.parse(localStorage.getItem("memos"));
-    return saveMemos ? saveMemos : [];
+    const storedMemos = JSON.parse(localStorage.getItem("memos"));
+    return storedMemos ? storedMemos : [];
   });
   const [targetId, setTargetId] = useState("");
   const targetMemo = memos.find((memo) => memo.id === targetId);
