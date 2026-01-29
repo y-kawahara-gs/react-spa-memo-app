@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Window from "./components/Window.jsx";
 import MemoEditor from "./components/MemoEditor.jsx";
 import MemoList from "./components/MemoList.jsx";
 import "./App.css";
@@ -58,31 +57,22 @@ function App() {
   return (
     <div>
       <p>一覧</p>
-      <Window
-        content={
-          <MemoList
-            memos={memos}
-            newMemoId={newMemo.id}
-            onClick={handleSetId}
-          />
-        }
-      />
+      <div className="window">
+        <MemoList memos={memos} newMemoId={newMemo.id} onClick={handleSetId} />
+      </div>
       {targetId !== "" ? (
         <>
           <p>編集</p>
-          <Window
-            className="window"
-            content={
-              <MemoEditor
-                key={targetMemo ? targetMemo.id : newMemo.id}
-                memo={targetMemo ? targetMemo : newMemo}
-                exists={targetMemo ? true : false}
-                onAddMemo={handleAddMemo}
-                onChangeMemo={handleChangeMemo}
-                onDeleteMemo={handleDeleteMemo}
-              />
-            }
-          />
+          <div className="window">
+            <MemoEditor
+              key={targetMemo ? targetMemo.id : newMemo.id}
+              memo={targetMemo ? targetMemo : newMemo}
+              exists={targetMemo ? true : false}
+              onAddMemo={handleAddMemo}
+              onChangeMemo={handleChangeMemo}
+              onDeleteMemo={handleDeleteMemo}
+            />
+          </div>
         </>
       ) : (
         false
