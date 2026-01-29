@@ -10,9 +10,8 @@ function App() {
   });
   const [targetId, setTargetId] = useState("");
   const targetMemo = memos.find((memo) => memo.id === targetId);
-  const lastId = memos.length > 0 ? memos.slice(-1)[0].id : 0;
   const newMemo = {
-    id: lastId + 1,
+    id: self.crypto.randomUUID(),
     title: "<1行目にタイトル>",
     content: "<２行目以下に内容>",
   };
@@ -58,7 +57,7 @@ function App() {
     <div>
       <p>一覧</p>
       <div className="window">
-        <MemoList memos={memos} newMemoId={newMemo.id} handleClick={handleSetId} />
+        <MemoList memos={memos} handleClick={handleSetId} />
       </div>
       {targetId !== "" ? (
         <>
