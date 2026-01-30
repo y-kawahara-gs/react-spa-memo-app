@@ -1,6 +1,6 @@
-export default function ActionButton({ name, handleClick }) {
+export default function ActionButton({ name, onSmash }) {
   return (
-    <button className="action-button" onClick={handleClick}>
+    <button className="action-button" onClick={onSmash}>
       {name}
     </button>
   );

@@ -36,7 +36,7 @@ function App() {
     <div>
       <p>一覧</p>
       <div className="window">
-        <MemoList memos={memos} handleClick={handleSetId} />
+        <MemoList memos={memos} onSetId={handleSetId} />
       </div>
       {targetId !== "" ? (
         <>
@@ -47,7 +47,7 @@ function App() {
               memo={targetMemo ? targetMemo : newMemo}
               memos={memos}
               exists={targetMemo ? true : false}
-              handleAction={handleAction}
+              onAction={handleAction}
             />
           </div>
         </>

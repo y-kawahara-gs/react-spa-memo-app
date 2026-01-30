@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ActionButton from "./ActionButton.jsx";
 
-export default function MemoEditor({ memos, memo, exists, handleAction }) {
+export default function MemoEditor({ memos, memo, exists, onAction }) {
   const [text, setText] = useState(`${memo.title}\n${memo.content}`);
   const memoId = memo.id;
   const nextMemo = {
@@ -24,8 +24,8 @@ export default function MemoEditor({ memos, memo, exists, handleAction }) {
           <>
             <ActionButton
               name={"更新"}
-              handleClick={() =>
-                handleAction(
+              onSmash={() =>
+                onAction(
                   memos.map((memo) => {
                     return memo.id === nextMemo.id ? nextMemo : memo;
                   }),
@@ -34,15 +34,15 @@ export default function MemoEditor({ memos, memo, exists, handleAction }) {
             />
             <ActionButton
               name={"削除"}
-              handleClick={() =>
-                handleAction(memos.filter((memo) => memo.id !== memoId))
+              onSmash={() =>
+                onAction(memos.filter((memo) => memo.id !== memoId))
               }
             />
           </>
         ) : (
           <ActionButton
             name={"追加"}
-            handleClick={() => handleAction([...memos, nextMemo])}
+            onSmash={() => onAction([...memos, nextMemo])}
           />
         )}
       </div>
