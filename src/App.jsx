@@ -24,29 +24,8 @@ function App() {
     }
   }
 
-  function handleAddMemo(nextMemo) {
-    setMemos((memos) => {
-      const resultMemo = [...memos, nextMemo];
-      localStorage.setItem("memos", JSON.stringify(resultMemo));
-      return resultMemo;
-    });
-    setTargetId("");
-  }
-
-  function handleChangeMemo(nextMemo) {
-    setMemos((memos) => {
-      const resultMemo = memos.map((memo) => {
-        return memo.id === nextMemo.id ? nextMemo : memo;
-      });
-      localStorage.setItem("memos", JSON.stringify(resultMemo));
-      return resultMemo;
-    });
-    setTargetId("");
-  }
-
-  function handleDeleteMemo(memoId) {
-    setMemos((memos) => {
-      const resultMemo = memos.filter((memo) => memo.id !== memoId);
+  function handleAction(resultMemo) {
+    setMemos(() => {
       localStorage.setItem("memos", JSON.stringify(resultMemo));
       return resultMemo;
     });
@@ -66,10 +45,9 @@ function App() {
             <MemoEditor
               key={targetMemo ? targetMemo.id : newMemo.id}
               memo={targetMemo ? targetMemo : newMemo}
+              memos={memos}
               exists={targetMemo ? true : false}
-              handleAddMemo={handleAddMemo}
-              handleChangeMemo={handleChangeMemo}
-              handleDeleteMemo={handleDeleteMemo}
+              handleAction={handleAction}
             />
           </div>
         </>
