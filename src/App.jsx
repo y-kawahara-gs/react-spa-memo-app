@@ -3,14 +3,14 @@ import MemoEditor from "./components/MemoEditor.jsx";
 import MemoList from "./components/MemoList.jsx";
 import "./App.css";
 
-const memosStrage = {
+const memosStorage = {
   set: (memo) => localStorage.setItem("memos", JSON.stringify(memo)),
   get: () => JSON.parse(localStorage.getItem("memos")),
 };
 
 function App() {
   const [memos, setMemos] = useState(() => {
-    return memosStrage.get() || [];
+    return memosStorage.get() || [];
   });
   const [targetId, setTargetId] = useState(null);
   const targetMemo = memos.find((memo) => memo.id === targetId);
@@ -31,7 +31,7 @@ function App() {
   function handleAdd(nextMemo) {
     setMemos((memos) => {
       const resultMemo = [...memos, nextMemo];
-      memosStrage.set(resultMemo);
+      memosStorage.set(resultMemo);
       return resultMemo;
     });
     setTargetId(null);
@@ -42,7 +42,7 @@ function App() {
       const resultMemo = memos.map((memo) => {
         return memo.id === nextMemo.id ? nextMemo : memo;
       });
-      memosStrage.set(resultMemo);
+      memosStorage.set(resultMemo);
       return resultMemo;
     });
     setTargetId(null);
@@ -51,7 +51,7 @@ function App() {
   function handleDelete(memoId) {
     setMemos((memos) => {
       const resultMemo = memos.filter((memo) => memo.id !== memoId);
-      memosStrage.set(resultMemo);
+      memosStorage.set(resultMemo);
       return resultMemo;
     });
     setTargetId(null);
