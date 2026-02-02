@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ActionButton from "./ActionButton.jsx";
+import Button from "./Button.jsx";
 
 export default function MemoEditor({
   memo,
@@ -27,11 +27,11 @@ export default function MemoEditor({
       <div className="button-group">
         {exists ? (
           <>
-            <ActionButton name={"更新"} onSmash={() => onUpdate(nextMemo)} />
-            <ActionButton name={"削除"} onSmash={() => onDelete(memo.id)} />
+            <Button label={"更新"} onClick={() => onUpdate(nextMemo)} />
+            <Button label={"削除"} onClick={() => onDelete(memo.id)} />
           </>
         ) : (
-          <ActionButton name={"追加"} onSmash={() => onAdd(nextMemo)} />
+          <Button label={"追加"} onClick={() => onAdd(nextMemo)} />
         )}
       </div>
     </>
