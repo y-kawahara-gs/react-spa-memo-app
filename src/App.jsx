@@ -3,12 +3,16 @@ import MemoEditor from "./components/MemoEditor.jsx";
 import MemoList from "./components/MemoList.jsx";
 import "./App.css";
 
+const memosStrage = {
+  set: (memo) => localStorage.setItem("memos", JSON.stringify(memo)),
+  get: () => JSON.parse(localStorage.getItem("memos")),
+};
+
 function App() {
   const [memos, setMemos] = useState(() => {
-    const storedMemos = JSON.parse(localStorage.getItem("memos"));
-    return storedMemos ? storedMemos : [];
+    return memosStrage.get() || [];
   });
-  const [targetId, setTargetId] = useState("");
+  const [targetId, setTargetId] = useState(null);
   const targetMemo = memos.find((memo) => memo.id === targetId);
   const newMemo = {
     id: self.crypto.randomUUID(),
@@ -24,12 +28,33 @@ function App() {
     }
   }
 
-  function handleAction(resultMemo) {
-    setMemos(() => {
-      localStorage.setItem("memos", JSON.stringify(resultMemo));
+  function handleAdd(nextMemo) {
+    setMemos((memos) => {
+      const resultMemo = [...memos, nextMemo];
+      memosStrage.set(resultMemo);
       return resultMemo;
     });
-    setTargetId("");
+    setTargetId(null);
+  }
+
+  function handleUpdate(nextMemo) {
+    setMemos((memos) => {
+      const resultMemo = memos.map((memo) => {
+        return memo.id === nextMemo.id ? nextMemo : memo;
+      });
+      memosStrage.set(resultMemo);
+      return resultMemo;
+    });
+    setTargetId(null);
+  }
+
+  function handleDelete(memoId) {
+    setMemos((memos) => {
+      const resultMemo = memos.filter((memo) => memo.id !== memoId);
+      memosStrage.set(resultMemo);
+      return resultMemo;
+    });
+    setTargetId(null);
   }
 
   return (
@@ -38,16 +63,17 @@ function App() {
       <div className="window">
         <MemoList memos={memos} onSetId={handleSetId} />
       </div>
-      {targetId !== "" ? (
+      {targetId ? (
         <>
           <p>編集</p>
           <div className="window">
             <MemoEditor
               key={targetMemo ? targetMemo.id : newMemo.id}
               memo={targetMemo ? targetMemo : newMemo}
-              memos={memos}
               exists={targetMemo ? true : false}
-              onAction={handleAction}
+              onAdd={handleAdd}
+              onUpdate={handleUpdate}
+              onDelete={handleDelete}
             />
           </div>
         </>
