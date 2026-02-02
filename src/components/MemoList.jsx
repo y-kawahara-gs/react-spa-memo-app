@@ -10,7 +10,9 @@ export default function MemoList({ memos, onSetId }) {
           </li>
         ))}
         <li>
-          <button onClick={() => onSetId("new")}>追加</button>
+          <button className="grey-border" onClick={() => onSetId("new")}>
+            追加
+          </button>
         </li>
       </ul>
     </>

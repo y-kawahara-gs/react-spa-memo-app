@@ -38,7 +38,7 @@ textarea {
 button {
   color: black;
   background-color: white;
-  border-color: blue;
+  border: 4px solid blue;
   margin: 3;
 }
 
@@ -53,7 +53,11 @@ button {
   margin: 10;
 }
 
-.action-button {
+.grey-border {
+  border: 2px solid #808080;
+}
+
+.grey-border.action-button {
   flex: 1;
   display: flex;
   justify-content: center;
