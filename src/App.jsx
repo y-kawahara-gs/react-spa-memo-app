@@ -1,35 +1,86 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import MemoEditor from "./components/MemoEditor.jsx";
+import MemoList from "./components/MemoList.jsx";
+import "./App.css";
+
+const memosStorage = {
+  set: (memo) => localStorage.setItem("memos", JSON.stringify(memo)),
+  get: () => JSON.parse(localStorage.getItem("memos")),
+};
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [memos, setMemos] = useState(() => {
+    return memosStorage.get() || [];
+  });
+  const [targetId, setTargetId] = useState(null);
+  const targetMemo = memos.find((memo) => memo.id === targetId);
+  const newMemo = {
+    id: self.crypto.randomUUID(),
+    content: "<1行目にタイトル>\n<２行目以下に内容>",
+  };
+
+  function handleSetId(memoId) {
+    if (targetId === memoId) {
+      setTargetId("");
+    } else {
+      setTargetId(memoId);
+    }
+  }
+
+  function handleAdd(editingMemo) {
+    setMemos((memos) => {
+      const resultMemo = [...memos, editingMemo];
+      memosStorage.set(resultMemo);
+      return resultMemo;
+    });
+    setTargetId(null);
+  }
+
+  function handleUpdate(editingMemo) {
+    setMemos((memos) => {
+      const resultMemo = memos.map((memo) => {
+        return memo.id === editingMemo.id ? editingMemo : memo;
+      });
+      memosStorage.set(resultMemo);
+      return resultMemo;
+    });
+    setTargetId(null);
+  }
+
+  function handleDelete(memoId) {
+    setMemos((memos) => {
+      const resultMemo = memos.filter((memo) => memo.id !== memoId);
+      memosStorage.set(resultMemo);
+      return resultMemo;
+    });
+    setTargetId(null);
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div>
+      <p>一覧</p>
+      <div className="window">
+        <MemoList memos={memos} onSetId={handleSetId} />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      {targetId ? (
+        <>
+          <p>編集</p>
+          <div className="window">
+            <MemoEditor
+              key={targetMemo ? targetMemo.id : newMemo.id}
+              memo={targetMemo ? targetMemo : newMemo}
+              exists={targetMemo ? true : false}
+              onAdd={handleAdd}
+              onUpdate={handleUpdate}
+              onDelete={handleDelete}
+            />
+          </div>
+        </>
+      ) : (
+        false
+      )}
+    </div>
+  );
 }
 
-export default App
+export default App;
