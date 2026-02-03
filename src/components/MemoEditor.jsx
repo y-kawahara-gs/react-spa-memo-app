@@ -9,7 +9,7 @@ export default function MemoEditor({
   onDelete,
 }) {
   const [text, setText] = useState(`${memo.title}\n${memo.content}`);
-  const nextMemo = {
+  const editingMemo = {
     id: memo.id,
     title: text.split("\n", 1),
     content: text.split("\n").slice(1).join("\n"),
@@ -27,11 +27,11 @@ export default function MemoEditor({
       <div className="button-group">
         {exists ? (
           <>
-            <Button label={"更新"} onClick={() => onUpdate(nextMemo)} />
+            <Button label={"更新"} onClick={() => onUpdate(editingMemo)} />
             <Button label={"削除"} onClick={() => onDelete(memo.id)} />
           </>
         ) : (
-          <Button label={"追加"} onClick={() => onAdd(nextMemo)} />
+          <Button label={"追加"} onClick={() => onAdd(editingMemo)} />
         )}
       </div>
     </>

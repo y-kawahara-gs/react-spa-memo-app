@@ -28,19 +28,19 @@ function App() {
     }
   }
 
-  function handleAdd(nextMemo) {
+  function handleAdd(editingMemo) {
     setMemos((memos) => {
-      const resultMemo = [...memos, nextMemo];
+      const resultMemo = [...memos, editingMemo];
       memosStorage.set(resultMemo);
       return resultMemo;
     });
     setTargetId(null);
   }
 
-  function handleUpdate(nextMemo) {
+  function handleUpdate(editingMemo) {
     setMemos((memos) => {
       const resultMemo = memos.map((memo) => {
-        return memo.id === nextMemo.id ? nextMemo : memo;
+        return memo.id === editingMemo.id ? editingMemo : memo;
       });
       memosStorage.set(resultMemo);
       return resultMemo;
