@@ -5,7 +5,7 @@ export default function MemoList({ memos, onSetId }) {
         {memos.map((memo) => (
           <li key={memo.id}>
             <button className="list-button" onClick={() => onSetId(memo.id)}>
-              {memo.title}
+              {memo.content.split("\n")[0]}
             </button>
           </li>
         ))}

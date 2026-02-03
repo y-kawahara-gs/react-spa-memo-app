@@ -8,20 +8,19 @@ export default function MemoEditor({
   onUpdate,
   onDelete,
 }) {
-  const [text, setText] = useState(`${memo.title}\n${memo.content}`);
+  const [content, setContent] = useState(`${memo.content}`);
   const editingMemo = {
     id: memo.id,
-    title: text.split("\n", 1),
-    content: text.split("\n").slice(1).join("\n"),
+    content,
   };
   return (
     <>
       <textarea
         cols="10"
         rows="10"
-        value={text}
+        value={content}
         onChange={(e) => {
-          setText(e.target.value);
+          setContent(e.target.value);
         }}
       />
       <div className="button-group">

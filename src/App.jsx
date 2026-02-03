@@ -16,8 +16,7 @@ function App() {
   const targetMemo = memos.find((memo) => memo.id === targetId);
   const newMemo = {
     id: self.crypto.randomUUID(),
-    title: "<1行目にタイトル>",
-    content: "<２行目以下に内容>",
+    content: "<1行目にタイトル>\n<２行目以下に内容>",
   };
 
   function handleSetId(memoId) {
