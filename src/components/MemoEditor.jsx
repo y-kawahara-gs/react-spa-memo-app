@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLogin } from "../hooks/useLogin.jsx";
+import { useAuth } from "../contexts/auth/useAuth.jsx";
 import Button from "./Button.jsx";
 
 export default function MemoEditor({
@@ -14,7 +14,7 @@ export default function MemoEditor({
     id: memo.id,
     content,
   };
-  const { isLogin } = useLogin();
+  const { isAuthenticated } = useAuth();
 
   return (
     <>
@@ -23,11 +23,11 @@ export default function MemoEditor({
         rows="10"
         value={content}
         onChange={(e) => {
-          isLogin && setContent(e.target.value);
+          isAuthenticated && setContent(e.target.value);
         }}
       />
       <div className="button-group">
-        {isLogin &&
+        {isAuthenticated &&
           (exists ? (
             <>
               <Button label={"更新"} onClick={() => onUpdate(editingMemo)} />

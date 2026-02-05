@@ -1,7 +1,7 @@
 import { useState } from "react";
 import MemoEditor from "./components/MemoEditor.jsx";
 import MemoList from "./components/MemoList.jsx";
-import { LoginProvider } from "./components/LoginProvider.jsx";
+import { AuthProvider } from "./contexts/auth/AuthProvider.jsx";
 import "./App.css";
 
 const memosStorage = {
@@ -11,9 +11,9 @@ const memosStorage = {
 
 function App() {
   return (
-    <LoginProvider>
+    <AuthProvider>
       <Home />
-    </LoginProvider>
+    </AuthProvider>
   );
 }
 
