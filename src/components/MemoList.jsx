@@ -1,6 +1,6 @@
 import { useLogin } from "../hooks/useLogin.jsx";
 
-export default function MemoList({ memos, onSetId}) {
+export default function MemoList({ memos, onSetId }) {
   const { isLogin, toggleLogin } = useLogin();
   return (
     <>
