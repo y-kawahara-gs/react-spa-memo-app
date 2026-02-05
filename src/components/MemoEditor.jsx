@@ -21,9 +21,10 @@ export default function MemoEditor({
       <textarea
         cols="10"
         rows="10"
+        readOnly={!isAuthenticated}
         value={content}
         onChange={(e) => {
-          isAuthenticated && setContent(e.target.value);
+          setContent(e.target.value);
         }}
       />
       <div className="button-group">
