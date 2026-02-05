@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useAuth } from "../contexts/auth/useAuth.jsx";
 import Button from "./Button.jsx";
 
 export default function MemoEditor({
@@ -8,30 +9,34 @@ export default function MemoEditor({
   onUpdate,
   onDelete,
 }) {
-  const [content, setContent] = useState(`${memo.content}`);
+  const [content, setContent] = useState(memo.content);
   const editingMemo = {
     id: memo.id,
     content,
   };
+  const { isAuthenticated } = useAuth();
+
   return (
     <>
       <textarea
         cols="10"
         rows="10"
+        readOnly={!isAuthenticated}
         value={content}
         onChange={(e) => {
           setContent(e.target.value);
         }}
       />
       <div className="button-group">
-        {exists ? (
-          <>
-            <Button label={"更新"} onClick={() => onUpdate(editingMemo)} />
-            <Button label={"削除"} onClick={() => onDelete(memo.id)} />
-          </>
-        ) : (
-          <Button label={"追加"} onClick={() => onAdd(editingMemo)} />
-        )}
+        {isAuthenticated &&
+          (exists ? (
+            <>
+              <Button label={"更新"} onClick={() => onUpdate(editingMemo)} />
+              <Button label={"削除"} onClick={() => onDelete(memo.id)} />
+            </>
+          ) : (
+            <Button label={"追加"} onClick={() => onAdd(editingMemo)} />
+          ))}
       </div>
     </>
   );

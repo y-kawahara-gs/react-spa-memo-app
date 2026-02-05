@@ -1,6 +1,7 @@
 import { useState } from "react";
 import MemoEditor from "./components/MemoEditor.jsx";
 import MemoList from "./components/MemoList.jsx";
+import { AuthProvider } from "./contexts/auth/AuthProvider.jsx";
 import "./App.css";
 
 const memosStorage = {
@@ -9,6 +10,14 @@ const memosStorage = {
 };
 
 function App() {
+  return (
+    <AuthProvider>
+      <Home />
+    </AuthProvider>
+  );
+}
+
+function Home() {
   const [memos, setMemos] = useState(() => {
     return memosStorage.get() || [];
   });
