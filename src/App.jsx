@@ -2,7 +2,6 @@ import { useState } from "react";
 import MemoEditor from "./components/MemoEditor.jsx";
 import MemoList from "./components/MemoList.jsx";
 import { LoginProvider } from "./components/LoginProvider.jsx";
-import { useLogin } from "./hooks/useLogin.jsx";
 import "./App.css";
 
 const memosStorage = {
