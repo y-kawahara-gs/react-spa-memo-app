@@ -23,7 +23,6 @@ function Home() {
     return memosStorage.get() || [];
   });
   const [targetId, setTargetId] = useState(null);
-  const { isLogin, toggleLogin } = useLogin();
   const targetMemo = memos.find((memo) => memo.id === targetId);
   const newMemo = {
     id: self.crypto.randomUUID(),
@@ -70,9 +69,6 @@ function Home() {
   return (
     <div>
       <p>一覧</p>
-      <button className="grey-border" onClick={toggleLogin}>
-        {isLogin ? "ログアウト" : "ログイン"}
-      </button>
       <div className="window">
         <MemoList memos={memos} onSetId={handleSetId} />
       </div>

@@ -1,10 +1,15 @@
 import { useLogin } from "../hooks/useLogin.jsx";
 
-export default function MemoList({ memos, onSetId, onClick }) {
-  const { isLogin } = useLogin();
+export default function MemoList({ memos, onSetId}) {
+  const { isLogin, toggleLogin } = useLogin();
   return (
     <>
       <ul>
+        <li>
+          <button className="grey-border" onClick={toggleLogin}>
+            {isLogin ? "ログアウト" : "ログイン"}
+          </button>
+        </li>
         {memos.map((memo) => (
           <li key={memo.id}>
             <button className="list-button" onClick={() => onSetId(memo.id)}>
